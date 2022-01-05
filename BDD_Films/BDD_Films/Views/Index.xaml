@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BDD_Films.Views.Index"
+             xmlns:m="clr-namespace:BDD_Films.Model"
+             xmlns:vm="clr-namespace:BDD_Films.ViewModel" x:DataType="vm:MoviesViewModel"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="title" TargetType="Label">
+                <Setter Property="TextColor" Value="#ff1177" />
+            </Style>
+            <Style x:Key="frameTitle" TargetType="Label">
+                <Setter Property="TextColor" Value="#fff" />
+                <Setter Property="FontSize" Value="13" />
+            </Style>
+            <Style x:Key="qty" TargetType="Label">
+                <Setter Property="TextColor" Value="#fff" />
+                <Setter Property="FontSize" Value="10" />
+            </Style>
+            <Style x:Key="catTitle" TargetType="Label">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="#fff" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView VerticalScrollBarVisibility="Never" Orientation="Both" Padding="0" BackgroundColor="#353535">
+        <RelativeLayout>
+            <StackLayout>
+                <Label HorizontalOptions="Center" Style="{StaticResource title}" FontSize="35" FontAttributes="Bold" Text="Films à l'affiche" Margin="0,40,0,25"></Label>
+                <FlexLayout BindableLayout.ItemsSource="{Binding Movies}" Wrap="Wrap" Direction="Row" >
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="m:Movie">
+                            <StackLayout Orientation="Vertical">
+                                <Frame HeightRequest="300" HorizontalOptions="Center" Margin="25,0,25,30" CornerRadius="15" Padding="0" BackgroundColor="#202020">
+                                    <FlexLayout Direction="Row">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image Opacity="1" Source="{Binding image}" Aspect="AspectFill" WidthRequest="150"/>
+                                            <StackLayout Orientation="Vertical">
+                                                <Label Style="{StaticResource frameTitle}" Text="{Binding titre}" Margin="20,20,0,0" FontSize="20"></Label>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Frame HeightRequest="18" Margin="25,0,0,0" CornerRadius="15" Padding="0" BackgroundColor="#grey">
+                                                        <Label Style="{StaticResource frameTitle}" Text="{Binding categorie}" HorizontalOptions="Start" Padding="10,0,10,0" Margin="0,0,0,0" FontSize="12" BackgroundColor="Gray"></Label>
+                                                    </Frame>
+                                                    <Label Style="{StaticResource frameTitle}" Text="{Binding note}" Margin="5,0,0,0" FontSize="12"></Label>
+                                                    <Image Opacity="1" Source="https://cdn-icons-png.flaticon.com/512/2107/2107957.png" WidthRequest="10" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Style="{StaticResource frameTitle}" Text="{Binding langage}" FontAttributes="Bold" TextColor="#ff1177" Margin="65,10,0,0" FontSize="12"></Label>
+                                                    <Label Style="{StaticResource frameTitle}" Text="{Binding longueur}" FontAttributes="Bold" Margin="0,10,0,0" FontSize="12"></Label>
+                                                </StackLayout>
+                                                <Button Text="Description" Clicked="InfosFilm" BindingContext="{Binding description}" Margin="20,0,0,0"/>
+                                                <Button Text="Réserver" Clicked="ReservationFilm" BindingContext="{Binding seance}" Margin="20,-10,0,0"/>
+                                                <WebView Source="{Binding video}" VerticalOptions='FillAndExpand' Margin="10,0,-10,15"></WebView>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </FlexLayout>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </StackLayout>
+        </RelativeLayout>
+    </ScrollView>
+</ContentPage>
